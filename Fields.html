@@ -1,0 +1,76 @@
+<head>
+<style>
+    .jumbotron {
+      background-color: hsl(220,50%,90%);
+    }
+    pre.scrollable {
+      overflow: auto;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cal-heatmap/3.6.2/cal-heatmap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cal-heatmap/3.6.2/cal-heatmap.min.js"></script>
+<script src="http://tmroyal.github.io/Chart.HeatMap/Chart.HeatMap.S.min.js"></script>
+  <h3>Work experiences by non-Greek SLG</h3>
+</head>
+
+<body>
+<canvas id="sampleChart" width="700" height="400"></canvas>
+
+
+<script>
+(function(){
+  function clone(obj){
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function ctx(elementId){
+    return document.getElementById(elementId).getContext('2d');
+  }
+
+  var sampleData = {
+    labels: ['Alpha Phi Omega', 'Arts Theme House', 'Brownstone', 'Cooper', 'Cube', 'Illyria', 'Fusion', 'Langdorm', 'Maxwell', 'Mirecourt',
+             'Mundi', 'Nexus', 'Ubuntu', 'Wayne', 'All SLGs', 'All Fraternities', 'All Sororities'],
+    datasets: [
+      {
+        label: 'Business',
+        data: [10.53, 7.69, 14.81, 12.5, 25, 11.11, 0, 12.5, 18.52, 13.51, 25, 0, 20.69, 31.82, 16.73, 43.58, 25.58]
+      },
+      {
+        label: 'Engineering and Technology',
+        data: [21.05, 15.38, 22.22, 25, 37.5, 11.11, 0, 12.5, 33.33, 21.62, 16.67, 50, 13.79, 36.36, 24.49, 16.22, 11.63]
+      },
+      {
+        label: 'Government and Politics',
+        data: [0, 7.69, 3.7, 15.63, 0, 0, 16.67, 12.5, 11.11, 10.81, 0, 0, 6.9, 0, 7.35, 9.46, 9.59]
+    },
+      {
+        label: 'Health and Life Sciences',
+        data: [31.58, 30.77, 25.93, 18.75, 25, 33.33, 50, 25, 18.52, 24.32, 16.67, 12.5, 13.79, 13.64, 22.86, 9.46, 29.13]
+      },
+      {
+        label: 'Media and Sports',
+        data: [0, 15.38, 0, 3.13, 0, 22.22, 0, 0, 3.7, 8.11, 16.67, 0, 20.69, 9.09, 7.35, 3.72, 6.4]
+      },
+      {
+        label: 'Nonprofit',
+        data: [10.53, 7.69, 11.11, 6.25, 12.5, 11.11, 0, 0, 7.41, 13.51, 0, 12.5, 13.79, 9.09, 9.8, 3.04, 8.43]
+      },
+      {
+        label: 'Unknown',
+        data: [26.32, 15.38, 22.22, 18.75, 0, 9.09, 33.33, 37.5, 7.41, 8.11, 25, 25, 10.34, 0, 14.69, 14.53, 14.24]
+      }
+    ]
+  };
+  var colorTestColors = ["rgba(252,243,207,1)", "rgba(20,90,50,1)"];
+  var colorTestColors2 = ["rgba(214,234,248,1)", "rgba(81,46,95,1)"];
+
+  var sampleChart = new Chart(ctx('sampleChart')).HeatMap(sampleData,
+	{responsive: false, tooltipTemplate: "<%= xLabel %>'s in <%= yLabel %>: <%= value %>%", colorInterpolation: 'gradient', colors: colorTestColors2, colorHighlight: true, showLabels: false});
+
+
+})();
+</script>
+<br>
