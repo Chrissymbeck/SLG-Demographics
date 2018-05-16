@@ -1,0 +1,105 @@
+<head>
+<style>
+    .jumbotron {
+      background-color: hsl(220,50%,90%);
+    }
+    pre.scrollable {
+      overflow: auto;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cal-heatmap/3.6.2/cal-heatmap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cal-heatmap/3.6.2/cal-heatmap.min.js"></script>
+<script src="http://tmroyal.github.io/Chart.HeatMap/Chart.HeatMap.S.min.js"></script>
+  <h3>Majors by SLG</h3>
+</head>
+
+<body>
+<canvas id="sampleChart1" width="700" height="600"></canvas>
+
+
+<script>
+(function(){
+  function clone(obj){
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function ctx(elementId){
+    return document.getElementById(elementId).getContext('2d');
+  }
+
+  var sampleData1 = {
+    labels: ['All Duke', 'All SLGs', 'All Sororities', 'All Fraternities', 'Alpha Phi Omega', 'Arts Theme House', 'Brownstone', 'Cooper', 'Fusion', 'Illyria', 'Cube',
+             'LangDorm', 'Maxwell', 'Mirecourt', 'Mundi', 'Round Table', 'Nexus', 'Ubuntu', 'Wayne Manor'],
+    datasets: [
+      {
+        label: 'Public Policy',
+        data: [9.4, 5.3, 12.56, 9.75, 3.85, 6.67, 7.41, 3.45, 20, 9.1, 0, 0, 6.06, 6.82, 0, 6.45, 0, 5.26, 4]
+      },
+      {
+        label: 'Biology',
+        data: [9.1, 8.72, 6.15, 2.83, 19.23, 13.33, 11.11, 6.9, 40, 9.1, 11.11, 0, 3.03, 6.82, 6.67, 3.23, 9.09, 7.89, 12]
+      },
+      {
+        label: 'Computer Science',
+        data: [7.5, 13.08, 6.67, 14.47, 11.54, 6.67, 14.81, 24.14, 0, 0, 33.33, 12.5, 15.15, 9.09, 0, 12.9, 27.27, 7.89, 16]
+      },
+      {
+        label: 'Engineering',
+        data: [17.97, 16.2, 7.95, 13.21, 11.54, 26.67, 18.52, 10.34, 20, 9.1, 0, 37.5, 15.15, 27.27, 13.33, 12.9, 36.36, 2.63, 16]
+      },
+      {
+        label: 'Economics',
+        data: [9.8, 9.03, 6.92, 25.47, 7.69, 6.67, 7.41, 10.34, 0, 0, 33.33, 12.5, 18.18, 4.55, 0, 3.23, 0, 10.53, 16]
+      },
+      {
+        label: 'Psychology and Neuroscience',
+        data: [6.3, 10.9, 15.9, 2.83, 15.4, 6.67, 7.4, 10.34, 0, 18.18, 0, 0, 12.12, 9.09, 33.33, 9.68, 18.18, 10.53, 8]
+      },
+      {
+        label: 'Political Science',
+        data: [4.5, 4.36, 4.1, 7.55, 3.85, 6.67, 0, 6.9, 0, 27.27, 0, 0, 3.03, 4.55, 0, 3.23, 0, 7.89, 0]
+      },
+      {
+        label: 'History',
+        data: [2.9, 0.31, 1.28, 2.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.63, 0]
+      },
+      {
+        label: 'Evolutionary Anthropology',
+        data: [2.8, 1.25, 1.28, 0.31, 3.85, 0, 11.11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label: 'Mathematics',
+        data: [2.7, 1.56, 0.26, 1.89, 0, 0, 3.7, 3.45, 0, 0, 11.11, 0, 0, 0, 0, 3.23, 0, 2.63, 0]
+      },
+      {
+        label: 'English',
+        data: [2.2, 2.5, 1.78, 0.63, 0, 0, 0, 0, 0, 9.1, 0, 0, 0, 6.82, 6.67, 6.45, 0, 0, 4]
+      },
+      {
+        label: 'Sociology',
+        data: [2.1, 1.25, 1.84, 1.26, 0, 6.67, 3.7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.26, 0]
+      },
+      {
+        label: 'Other',
+        data: [22.73, 19.63, 26.41, 8.49, 19.23, 13.33, 7.41, 17.24, 20, 9.1, 11.11, 25, 24.24, 20.45, 20, 22.58, 0, 28.95, 24]
+      },
+      {
+        label: 'Unknown',
+        data: [0, 5.92, 7.18, 9.12, 3.85, 6.67, 3.7, 6.9, 0, 9.1, 0, 12.5, 3.03, 4.55, 20, 16.13, 9.09, 2.63, 0]
+      }
+    ]
+  };
+
+  var colorTestColors3 = ["rgba(253,237,236,1)", "rgba(100,30,22,1)"];
+  var colorTestColors4 = ["rgba(235,245,251,1)", "rgba(21,67,96,1)"];
+
+  var sampleChart1 = new Chart(ctx('sampleChart1')).HeatMap(sampleData1,
+	{responsive: false, tooltipTemplate: "<%= xLabel %>'s in <%= yLabel %>: <%= value %>%", colorInterpolation: 'gradient', colors: colorTestColors4, colorHighlight: true, showLabels: false});
+
+
+})();
+</script>
+<br>
